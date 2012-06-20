@@ -128,7 +128,7 @@ module Locomotive
 
   def self.url_for(path)
     result = path
-    if config.base_uri
+    if config.base_uri && !path[%r{^#{config.base_uri}}]
       result = "#{config.base_uri}/#{path.gsub(%r{^/}, '')}"
     end
     result = "/#{result}" if result[0..0] != '/'
