@@ -13,6 +13,7 @@ module Locomotive
       :enable_logs            => false,
       :delayed_job            => false,
       :default_locale         => :en,
+      :base_uri               => nil,
       :mailer_sender          => 'support@example.com',
       :manage_subdomain       => false,
       :manage_manage_domains  => false,

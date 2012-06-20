@@ -9,7 +9,7 @@ module Locomotive
       end
 
       def current_site_public_url
-        request.protocol + request.host_with_port
+        request.protocol + request.host_with_port + (Locomotive.config.base_uri || '')
       end
 
       def switch_to_site_url(site, options = {})

@@ -126,6 +126,15 @@ module Locomotive
     Rails.application.routes.named_routes[:locomotive].path.spec.to_s
   end
 
+  def self.url_for(path)
+    result = path
+    if config.base_uri
+      result = "#{config.base_uri}/#{path.gsub(%r{^/}, '')}"
+    end
+    result = "/#{result}" if result[0..0] != '/'
+    result
+  end
+
   protected
 
   def self.app_middleware
