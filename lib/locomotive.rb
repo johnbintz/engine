@@ -123,7 +123,7 @@ module Locomotive
   end
 
   def self.mounted_on
-    Rails.application.routes.named_routes[:locomotive].path.spec.to_s
+    url_for(Rails.application.routes.named_routes[:locomotive].path.spec.to_s)
   end
 
   def self.url_for(path)
