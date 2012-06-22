@@ -32,7 +32,19 @@ module Locomotive
       can :touch, [Page, ThemeAsset]
       can :sort, Page
 
-      can :manage, [ContentEntry, ContentAsset]
+      can :manage, [ContentEntry, ContentAsset] do |entry|
+        result = true
+
+        if perm_defs = ContentType.where(:slug => 'permissions').first
+          perms = perm_defs.entries.where(:user_email => @account.email).collect(&:types).collect { |types| types.split(',') }.flatten
+
+          if !perms.empty?
+            result = perms.any? { |perm| perm == entry.content_type.slug }
+          end
+        end
+
+        result
+      end
 
       can :touch, Site do |site|
         site == @site

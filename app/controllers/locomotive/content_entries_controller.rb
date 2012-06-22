@@ -22,26 +22,31 @@ module Locomotive
 
     def show
       @content_entry = @content_type.entries.find(params[:id])
+      authorize! params[:action].to_sym, @content_entry
       respond_with @content_entry
     end
 
     def new
       @content_entry = @content_type.entries.build
+      authorize! params[:action].to_sym, @content_entry
       respond_with @content_entry
     end
 
     def create
       @content_entry = @content_type.entries.create(params[:content_entry])
+      authorize! params[:action].to_sym, @content_entry
       respond_with @content_entry, :location => edit_content_entry_url(@content_type.slug, @content_entry._id)
     end
 
     def edit
       @content_entry = @content_type.entries.find(params[:id])
+      authorize! params[:action].to_sym, @content_entry
       respond_with @content_entry
     end
 
     def update
       @content_entry = @content_type.entries.find(params[:id])
+      authorize! params[:action].to_sym, @content_entry
       @content_entry.update_attributes(params[:content_entry])
       respond_with @content_entry, :location => edit_content_entry_url(@content_type.slug, @content_entry._id)
     end
@@ -51,8 +56,10 @@ module Locomotive
       respond_with @content_type
     end
 
+
     def destroy
       @content_entry = @content_type.entries.find(params[:id])
+      authorize! params[:action].to_sym, @content_entry
       @content_entry.destroy
       respond_with @content_entry, :location => content_entries_url(@content_type.slug)
     end
